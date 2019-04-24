@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Stats</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="row m-3">
+            <div class="col-sm-12 d-flex justify-content-between align-items-center">
+                <a class='btn btn-primary' href="/year/<%- data[0].year-1>2008 ? data[0].year-1 : 2008 %>">&lt;</a>
+                <h1 class='text-center display-1 m-3'><%= data[0].year %></h1>
+                <a class='btn btn-primary' href="/year/<%- data[0].year+1<2019 ? data[0].year+1 : 2019  %>">&gt;</a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Artist</th>
+                    <th>Album Artwork</th>
+                    <th>Preview</th>
+                    <th>
+                        <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.">
+                            Mode
+                        </button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.">
+                            Key
+                        </button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.">
+                            Acousticness
+                        </button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.">
+                            Danceability
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(song => { %>
+                <tr>
+                    <td scope="row"><%= song.rank %></td>
+                    <td><%= song.name %></td>
+                    <td><%= song.artist %></td>
+                    <td><img class='img-thumbnail' src="<%= (song.spotify || '').album_artwork %>" height='100' width='100' /></td>
+                    <td>
+                        <audio controls>
+                            <source src="<%= (song.spotify || '').preview %>" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    </td>
+                    <td><%= (song.analyze || '').mode %></td>
+                    <td><%= (song.analyze || '').key %></td>
+                    <td><%= (song.analyze || '').acousticness %></td>
+                    <td><%= (song.analyze || '').danceability %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src='/js/index.js'></script>
+</body>
+
+</html>
